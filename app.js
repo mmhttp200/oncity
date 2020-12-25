@@ -5,10 +5,12 @@
 const express = require('express')
 const path = require('path')
 const { documentationAPIroutes,
-        pagesAPIroutes,
+        pagesAPIpublicRoutes,
+        pagesAPIprivateRoutes,
         accountsAPIroutes,
         salesAPIroutes,
         database,
+        auth,
         isWebCrawler } = require('./header')
 const app = express()
 const PORT = process.env.PORT
@@ -19,9 +21,10 @@ app.use(express.json())
 app.use(isWebCrawler)
 
 app.use('/api/documentation', documentationAPIroutes)
-app.use('/api/public/pages', pagesAPIroutes)
-app.use('/api/private/accounts', accountsAPIroutes)
-app.use('/api/private/sales', salesAPIroutes)
+app.use('/api/public/pages', pagesAPIpublicRoutes)
+app.use('/api/private/pages', pagesAPIprivateRoutes)
+app.use('/api/private/accounts', auth, accountsAPIroutes)
+app.use('/api/private/sales', auth, salesAPIroutes)
 
 //Database connection
 database.on('error', (err)=>{
