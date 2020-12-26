@@ -3,8 +3,8 @@
  * @returns {literal object} {success: true,  message, data: []}
  * @param {object} err from Promise.catch(err)
  */
-function SuccessMessage(success = true, message, ...rest){
-    return {success, message, data: rest}
+function SuccessMessage(success = true, message, data = {}){
+    return {success, message, data}
 }
 
 

@@ -67,17 +67,82 @@ class AccountController{
                         .then(data=>{
                             if(!data) return SuccessMessage(false, 'This credentials are wrong or the user does not exist.')
                             const token = getToken({_id: data._id})
-                            return SuccessMessage(true, 'Logged with success.', {token})
+                            return SuccessMessage(true, 'Logged with success.', {
+                                token,
+                                fullname: data.fullname,
+                                gender: data.gender,
+                            })
                         })
                         .catch(err=>ErrMessage(err, 'AccountController.Login'))
                         .then((result)=>{
                             return res.status(200).json(result)
                         })
     }
-    static Information(req,res,next){}
-    static Delete(req,res,next){}
-    static UpdateEmail(req,res,next){}
-    static UpdatePassword(req,res,next){}
+    static InformationByToken(req,res,next){
+        const _id = req.body._id
+        const Information = new AccountModel()
+         const result = Information.InformationByToken(_id)
+                       .then(data=>{
+                            if(!data) return SuccessMessage(false, 'This credentials are wrong or the user does not exist.')
+                            return SuccessMessage(true, 'Informer retrived with success.', {
+                                email: data.email,
+                                fullname: data. fullname,
+                                accountStatus: data.accountStatus,
+                                cellphone: data.cellphone,
+                                gender: data.gender,
+                                officialDocument: data.officialDocument,
+                                city_id: data.city,
+                                address: data.address,
+                                zipcode: data.zipcode
+                            })
+                        })
+                        .catch(err=>ErrMessage(err, 'AccountController.InformationByToken'))
+                        .then((result)=>{
+                            return res.status(200).json(result)
+                        })
+    }
+    
+    static UpdateEmail(req,res,next){
+        const _id = req.body._id
+        const newEmail = req.body.newEmail
+
+        const Updation = new AccountModel()
+        const result = Updation.UpdateEmail(_id, newEmail)
+                        .then(data=>{
+                            if(!data) return SuccessMessage(false, 'This credentials are worng or the user does not exist')
+                            return SuccessMessage(true, 'Email was updated with success.')
+                        })
+                        .catch(err=>ErrMessage(err, 'AccountController.UpdateEmail'))
+                        .then((result)=>res.status(200).json(result))
+    }
+    static UpdatePassword(req,res,next){
+        const _id = req.body._id
+        const newPassword = req.body.newPassword
+
+        const Updation = new AccountModel()
+        const result = Updation.UpdatePassword(_id, newPassword)
+                        .then(data=>{
+                            if(!data) return SuccessMessage(false, 'This credentials are worng or the user does not exist')
+                            return SuccessMessage(true, 'Password was updated with success.')
+                        })
+                        .catch(err=>ErrMessage(err, 'AccountController.UpdatePassword'))
+                        .then((result)=>res.status(200).json(result))
+    }
+    static Delete(req,res,next){
+        const _id = req.body._id
+        const email = req.body.email
+        const password = req.body.password
+
+        const Deletion = new AccountModel()
+        const result = Deletion.Delete(_id, email, password)
+                        .then(data=>{
+                            console.log(data)
+                            if(!data) return SuccessMessage(false, 'This credentials are wrong or the user does not exist')
+                            return SuccessMessage(true, 'The user was deleted with success')
+                        })
+                        .catch(err=>ErrMessage(err, 'AccountController.Delete'))
+                        .then((result)=>res.status(200).json(result))
+    }
 }
 
 module.exports = AccountController

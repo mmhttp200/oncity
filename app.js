@@ -23,8 +23,8 @@ app.use(isWebCrawler)
 
 app.use('/api/documentation', documentationAPIroutes)
 app.use('/api/public/pages', pagesAPIpublicRoutes)
-app.use('/api/private/pages', pagesAPIprivateRoutes)
-app.use('/api/public/accounts', auth, accountsAPIpublicRoutes)
+app.use('/api/private/pages', auth, pagesAPIprivateRoutes)
+app.use('/api/public/accounts', accountsAPIpublicRoutes)
 app.use('/api/private/accounts', auth, accountsAPIprivateRoutes)
 app.use('/api/private/sales', auth, salesAPIroutes)
 

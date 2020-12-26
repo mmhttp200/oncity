@@ -3,7 +3,7 @@
  * @returns {literal object} {success: false, errorCode, message, errors: [{key, message}]}
  * @param {object} err from Promise.catch(err)
  */
-function ErrMessage(err = undefined, context){
+function ErrMessage(err = undefined, context = ""){
 
     console.error(context)
 
@@ -11,7 +11,7 @@ function ErrMessage(err = undefined, context){
                         errorCode: "UNKNOWN-INTERNAL-SERVER-ERROR-000",
                         message: "Internal error from server. Try again later.",
                         errors: []}
-
+    if(typeof err == "String") return {success: false, message: err, context}
     if(err.code) return ErrorMessageByCode(err)
 
 }
