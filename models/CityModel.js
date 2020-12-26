@@ -1,4 +1,4 @@
-const {CitySchema} = require('../header')
+const CitySchema = require('../database/schemas/CitySchema')
 
 class CityModel{
 

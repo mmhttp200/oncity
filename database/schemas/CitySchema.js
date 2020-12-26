@@ -3,13 +3,16 @@ const Schema = mongoose.Schema
 
 const CitySchema = new Schema({
     name: {
-        type: String
+        type: String,
+        required: true
     },
-    countryId: {
-        type: String
+    country_id: {
+        type: String,
+        required: true
     },
-    stateId: {
-        type: String
+    state_id: {
+        type: String,
+        required: true
     }
 })
 

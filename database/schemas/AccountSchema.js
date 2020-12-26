@@ -30,8 +30,6 @@ const { accountStatusValidator,
  * @param {string} fullname
  * @param {string} gender M = male | F = female | O = other
  * @param {number} officialDocument an unique official identification document (only numbers)
- * @param {string} country string with objectId from a country in country's collection
- * @param {string} state string with objectId from a state in state's collection
  * @param {string} city string with objectId from a city in city's collection
  * @param {string} address Example: street and house's number
  * @param {number} zipcode (only numbers)
@@ -42,7 +40,7 @@ const AccountSchema = new Schema({
         type: Number,
         default: 0,
         required: true,
-        validade: {
+        validate: {
             validator: sessionStatusValidator,
             message: "This session number is not recognized."
         }
@@ -50,17 +48,13 @@ const AccountSchema = new Schema({
     sessionIP: {
         type: Number,
         default: 0,
-        required: true,
-        validade: {
-            validator: sessionIPValidator,
-            message: "Use a valid IP."
-        }
+        required: true
     },
     accountStatus: {
         type: Number,
         default: 0,
         required: true,
-        validade: {
+        validate: {
             validator: accountStatusValidator,
             message: "This account status is not recognized."
         }
@@ -69,7 +63,7 @@ const AccountSchema = new Schema({
         type: String,
         required: true,
         unique: true,
-        validade: {
+        validate: {
             validator: emailValidator,
             message: "Use a valid email."
         }
@@ -77,7 +71,7 @@ const AccountSchema = new Schema({
     password: {
         type: String,
         required: true,
-        validade: {
+        validate: {
             validator: passwordValidator,
             message: "Use a valid password, with min 8 characters and max 16 characters, only numbers, letters, and @_-!."
         }
@@ -86,7 +80,7 @@ const AccountSchema = new Schema({
         type: Number,
         required: true,
         unique: true,
-        validade: {
+        validate: {
             validator: cellphoneValidator,
             message: "Use a valid cellphone."
         }
@@ -94,7 +88,7 @@ const AccountSchema = new Schema({
     fullname: {
         type: String,
         required: true,
-        validade: {
+        validate: {
             validator: fullnameValidator,
             message: "Write a valid fullname, only letters."
         }
@@ -102,7 +96,7 @@ const AccountSchema = new Schema({
     gender: {
         type: String,
         required: true,
-        validade: {
+        validate: {
             validator: genderValidator,
             message: "Use a valid option to gender. Male, Female, or Other."
         }
@@ -111,23 +105,15 @@ const AccountSchema = new Schema({
         type: Number,
         required: true,
         unique: true,
-        validade: {
+        validate: {
             validator: officialDocumentValidator,
             message: "Use a valid official document number."
         }
     },
-    country: {
-        type: String,
-        required: true,
-    },
-    state: {
-        type: String,
-        required: true
-    },
     city: {
         type: String,
         required: true,
-        validade: {
+        validate: {
             validator: cityValidator,
             message: "Use a valid city."
         }
@@ -139,7 +125,7 @@ const AccountSchema = new Schema({
     zipcode: {
         type: Number,
         required: true,
-        validade: {
+        validate: {
             validator: zipcodeValidator,
             message: "Use a valid zipcode (Brazilian format)"
         }
@@ -147,4 +133,4 @@ const AccountSchema = new Schema({
 
 })
 
-module.exports = mongoose.model('account', AccountSchema)
+module.exports = mongoose.model('account', AccountSchema, 'accounts')

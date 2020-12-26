@@ -20,21 +20,9 @@ const auth = require('./middlewares/auth')
 const documentationAPIroutes = require('./routes/api/documentationRoutes')
 const pagesAPIpublicRoutes = require('./routes/api/pagesPublicRoutes')
 const pagesAPIprivateRoutes = require('./routes/api/pagesPrivateRoutes')
-const accountsAPIroutes = require('./routes/api/accountsRoutes')
+const accountsAPIpublicRoutes = require('./routes/api/accountsPublicRoutes')
+const accountsAPIprivateRoutes = require('./routes/api/accountsPrivateRoutes')
 const salesAPIroutes = require('./routes/api/salesRoutes')
-
-/**
- * @summary Models
- */
-
-const CityModel = require('./models/CityModel')
-
-/**
- * @summary Controllers
- */
-const AccountController = require('./controllers/AccountController')
-const PageController = require('./controllers/PageController')
-const SaleController = require('./controllers/SaleController')
 
  /**
   * @summary Schemas
@@ -48,9 +36,9 @@ const CitySchema = require('./database/schemas/CitySchema')
 module.exports.documentationAPIroutes = documentationAPIroutes
 module.exports.pagesAPIprivateRoutes = pagesAPIprivateRoutes
 module.exports.pagesAPIpublicRoutes = pagesAPIpublicRoutes
-module.exports.accountsAPIroutes = accountsAPIroutes
+module.exports.accountsAPIprivateRoutes = accountsAPIprivateRoutes
+module.exports.accountsAPIpublicRoutes = accountsAPIpublicRoutes
 module.exports.salesAPIroutes = salesAPIroutes
-module.exports.CityModel = CityModel
 module.exports.CitySchema = CitySchema
 module.exports.database = database
 
@@ -60,9 +48,3 @@ module.exports.database = database
 module.exports.isWebCrawler = isWebCrawler
 module.exports.auth = auth
 
-/**
- * Exporting controllers
- */
-module.exports.AccountController = AccountController
-module.exports.PageController = PageController
-module.exports.SaleController = SaleController
