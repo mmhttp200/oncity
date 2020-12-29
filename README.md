@@ -9,23 +9,32 @@ https://oncity.herokuapp.com/api/documentation
 
 # API routes
 
-| METHOD | ROUTE | BODY / PARAMS | RESPONSE
-|-|-|-|-|
-||||
+## Account
 
-# Returned Codes
+| METHOD | ROUTE | BODY / PARAMS |
+|-|-|-|
+|POST|/api/public/accounts/create-new-account|``{sessionStatus, sessionIP, accountStatus, email, password, cellphone, fullname, gender, officialDocument, city, address, zipcode}``|
+|POST|/api/public/accounts/login|``{email, password, sessionIP}``|
+|GET|/api/private/accounts/account-information|``header: token``|
+|DELETE|/api/private/accounts/delete-account|``{email, password}``|
+|PUT|/api/private/accounts/update-account-email|``{newEmail}``|
+|PUT|/api/private/accounts/update-account-password|``{newPassword}``|
+
+## Page
+
+| METHOD | ROUTE | BODY / PARAMS |
+|-|-|-|
+|GET|/api/public/pages/page/:uri||
+|POST|/api/private/pages/create-new-page|``{category_id, status, name, keywords, city, about}``|
+|PUT|/api/private/pages/update-page|``{page_id, updated_data}``|
+|DELETE|/api/private/pages/delete-page|``{page_id}``|
+
+# Returned JSON
 
 ## Error
 
-| CODE | DESCRIPTION |
-|-|-|
-|UNKNOWN-INTERNAL-SERVER-ERROR-000| Unknown error in server-side | 
-|ACCOUNT-CREATION-FAILURE-000||
-|ACCOUNT-CREATION-FAILURE-001||
-|ACCOUNT-CREATION-FAILURE-002||
-|ACCOUNT-CREATION-FAILURE-003||
+``{success: false, message: String, context: String, data: Object}``
 
 ## Success
 
-| CODE | DESCRIPTION |
-|-|-|
+``{success: Boolean, message: String, data: Object}``

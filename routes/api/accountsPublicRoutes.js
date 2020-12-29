@@ -13,7 +13,7 @@ route.post('/create-new-account', [
     body('sessionIP'),
     body('accountStatus'),
     body('email').isEmail(),
-    body('password'),
+    body('password').isLength({min: 8, max: 16}),
     body('cellphone'),
     body('fullname'),
     body('gender'),
@@ -24,8 +24,8 @@ route.post('/create-new-account', [
 ], async (req,res,next)=>await AccountController.Create(req,res,next))
 
 route.post('/login', [
-    body('email'),
-    body('password'),
+    body('email').isEmail(),
+    body('password').isLength({min: 8, max: 16}),
     body('sessionIP'),
 ], async (req,res,next)=>await AccountController.Login(req,res,next))
 

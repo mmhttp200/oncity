@@ -22,7 +22,6 @@ const pagesAPIpublicRoutes = require('./routes/api/pagesPublicRoutes')
 const pagesAPIprivateRoutes = require('./routes/api/pagesPrivateRoutes')
 const accountsAPIpublicRoutes = require('./routes/api/accountsPublicRoutes')
 const accountsAPIprivateRoutes = require('./routes/api/accountsPrivateRoutes')
-const salesAPIroutes = require('./routes/api/salesRoutes')
 
  /**
   * @summary Schemas
@@ -38,7 +37,6 @@ module.exports.pagesAPIprivateRoutes = pagesAPIprivateRoutes
 module.exports.pagesAPIpublicRoutes = pagesAPIpublicRoutes
 module.exports.accountsAPIprivateRoutes = accountsAPIprivateRoutes
 module.exports.accountsAPIpublicRoutes = accountsAPIpublicRoutes
-module.exports.salesAPIroutes = salesAPIroutes
 module.exports.CitySchema = CitySchema
 module.exports.database = database
 

@@ -9,14 +9,14 @@ const route = express.Router()
 
 route.get('/account-information', (req,res,next)=>AccountController.InformationByToken(req,res,next))
 route.delete('/delete-account', [
-    body('email'),
+    body('email').isEmail(),
     body('password')
 ],(req,res,next)=>AccountController.Delete(req,res,next))
 route.put('/update-account-email', [
     body('newEmail').isEmail()
 ], (req,res,next)=>AccountController.UpdateEmail(req,res,next))
 route.put('/update-account-password', [
-    body('newPassword')
+    body('newPassword').isLength({min: 8, max: 16})
 ],(req,res,next)=>AccountController.UpdatePassword(req,res,next))
 
 module.exports = route

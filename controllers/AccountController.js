@@ -12,16 +12,18 @@ class AccountController{
     constructor(){}
 
     /**
-     * @summary Handle route to create a new account
-     * @returns {literal object} {success: Boolean, message: String, data: Literal Object}
-     * @param {object} req 
-     * @param {object} res 
-     * @param {object} next 
+     * @summary handle routing
+     * @returns {literal object} {success: Boolean, message: String, data: Literal Object, context: String}
+     * @param {literal object} req Request from Express routing
+     * @param {literal object} res Response from Express routing
+     * @param {function} next next() from Express routing
      */
     static Create(req,res,next){
+        //Verify the {body} from express-validator
         const errors = validationResult(req);
         if(!errors.isEmpty()){
-            return res.status(200).json({ success: false, message: "Invalid data", errors: errors.array() });
+            const result = ErrMessage({code: undefined}, "Invalid data.", 'AccountController.Create', errors.array())
+            return res.status(200).json(result);
         }
 
         const newAccount = new AccountModel()
@@ -51,14 +53,33 @@ class AccountController{
                                          city,
                                          address,
                                          zipcode
-                                         ).then(data=>SuccessMessage(true, 'The new account was created with success.', data))
-                                        .catch(err=>ErrMessage(err, 'AccountController'))
-                                        .then((result)=>{
+                                         )
+                                         .then(data=>SuccessMessage(true, 'The new account was created with success.', data))
+                                        .catch(err=>{
+                                            const result = ErrMessage({code: undefined}, 'The account cannot be created.', 'AccountController.Create', err)
+                                            return res.status(200).json(result)
+                                        })
+                                        .then(result=>{
                                             return res.status(200).json(result)
                                         })
 
     }
+
+    /**
+     * @summary handle routing
+     * @returns {literal object} {success: Boolean, message: String, data: Literal Object, context: String}
+     * @param {literal object} req Request from Express routing
+     * @param {literal object} res Response from Express routing
+     * @param {function} next next() from Express routing
+     */
     static Login(req,res,next){
+        //Verify the {body} from express-validator
+        const errors = validationResult(req);
+        if(!errors.isEmpty()){
+            const result = ErrMessage({code: undefined}, "Invalid data.", 'AccountController.Login', errors.array())
+            return res.status(200).json(result);
+        }
+
         const email = req.body.email
         const password = req.body.password
         const sessionIP = req.body.sessionIP
@@ -73,12 +94,30 @@ class AccountController{
                                 gender: data.gender,
                             })
                         })
-                        .catch(err=>ErrMessage(err, 'AccountController.Login'))
+                        .catch(err=>{
+                            const result = ErrMessage({code: undefined}, 'This account cannot to do login.', 'AccountController.Login', err)
+                            return res.status(200).json(result)
+                        })
                         .then((result)=>{
                             return res.status(200).json(result)
                         })
     }
+
+    /**
+     * @summary handle routing
+     * @returns {literal object} {success: Boolean, message: String, data: Literal Object, context: String}
+     * @param {literal object} req Request from Express routing
+     * @param {literal object} res Response from Express routing
+     * @param {function} next next() from Express routing
+     */
     static InformationByToken(req,res,next){
+        //Verify the {body} from express-validator
+        const errors = validationResult(req);
+        if(!errors.isEmpty()){
+            const result = ErrMessage({code: undefined}, "Invalid data.", 'AccountController.InformationByToken', errors.array())
+            return res.status(200).json(result);
+        }
+
         const _id = req.body._id
         const Information = new AccountModel()
          const result = Information.InformationByToken(_id)
@@ -96,13 +135,30 @@ class AccountController{
                                 zipcode: data.zipcode
                             })
                         })
-                        .catch(err=>ErrMessage(err, 'AccountController.InformationByToken'))
+                        .catch(err=>{
+                            const result = ErrMessage({code: undefined}, 'This token is invalid.', 'AccountController.InformationByToken', err)
+                            return res.status(200).json(result)
+                        })
                         .then((result)=>{
                             return res.status(200).json(result)
                         })
     }
-    
+
+    /**
+     * @summary handle routing
+     * @returns {literal object} {success: Boolean, message: String, data: Literal Object, context: String}
+     * @param {literal object} req Request from Express routing
+     * @param {literal object} res Response from Express routing
+     * @param {function} next next() from Express routing
+     */
     static UpdateEmail(req,res,next){
+        //Verify the {body} from express-validator
+        const errors = validationResult(req);
+        if(!errors.isEmpty()){
+            const result = ErrMessage({code: undefined}, "Invalid data.", 'AccountController.UpdateEmail', errors.array())
+            return res.status(200).json(result);
+        }
+        
         const _id = req.body._id
         const newEmail = req.body.newEmail
 
@@ -112,10 +168,28 @@ class AccountController{
                             if(!data) return SuccessMessage(false, 'This credentials are worng or the user does not exist')
                             return SuccessMessage(true, 'Email was updated with success.')
                         })
-                        .catch(err=>ErrMessage(err, 'AccountController.UpdateEmail'))
+                        .catch(err=>{
+                            const result = ErrMessage({code: undefined}, 'This email cannot be updated.', 'AccountController.UpdateEmail', err)
+                            return res.status(200).json(result)
+                        })
                         .then((result)=>res.status(200).json(result))
     }
+
+    /**
+     * @summary handle routing
+     * @returns {literal object} {success: Boolean, message: String, data: Literal Object, context: String}
+     * @param {literal object} req Request from Express routing
+     * @param {literal object} res Response from Express routing
+     * @param {function} next next() from Express routing
+     */
     static UpdatePassword(req,res,next){
+        //Verify the {body} from express-validator
+        const errors = validationResult(req);
+        if(!errors.isEmpty()){
+            const result = ErrMessage({code: undefined}, "Invalid data.", 'AccountController.UpdatePassword', errors.array())
+            return res.status(200).json(result);
+        }
+
         const _id = req.body._id
         const newPassword = req.body.newPassword
 
@@ -125,10 +199,28 @@ class AccountController{
                             if(!data) return SuccessMessage(false, 'This credentials are worng or the user does not exist')
                             return SuccessMessage(true, 'Password was updated with success.')
                         })
-                        .catch(err=>ErrMessage(err, 'AccountController.UpdatePassword'))
+                        .catch(err=>{
+                            const result = ErrMessage({code: undefined}, 'This password cannot be updated.', 'AccountController.UpdatePassword', err)
+                            return res.status(200).json(result)
+                        })
                         .then((result)=>res.status(200).json(result))
     }
+
+    /**
+     * @summary handle routing
+     * @returns {literal object} {success: Boolean, message: String, data: Literal Object, context: String}
+     * @param {literal object} req Request from Express routing
+     * @param {literal object} res Response from Express routing
+     * @param {function} next next() from Express routing
+     */
     static Delete(req,res,next){
+        //Verify the {body} from express-validator
+        const errors = validationResult(req);
+        if(!errors.isEmpty()){
+            const result = ErrMessage({code: undefined}, "Invalid data.", 'AccountController.Delete', errors.array())
+            return res.status(200).json(result);
+        }
+        
         const _id = req.body._id
         const email = req.body.email
         const password = req.body.password
@@ -140,7 +232,10 @@ class AccountController{
                             if(!data) return SuccessMessage(false, 'This credentials are wrong or the user does not exist')
                             return SuccessMessage(true, 'The user was deleted with success')
                         })
-                        .catch(err=>ErrMessage(err, 'AccountController.Delete'))
+                        .catch(err=>{
+                            const result = ErrMessage({code: undefined}, 'This account cannot be deleted.', 'AccountController.Delete', err)
+                            return res.status(200).json(result)
+                        })
                         .then((result)=>res.status(200).json(result))
     }
 }

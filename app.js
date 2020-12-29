@@ -9,7 +9,6 @@ const { documentationAPIroutes,
         pagesAPIprivateRoutes,
         accountsAPIprivateRoutes,
         accountsAPIpublicRoutes,
-        salesAPIroutes,
         database,
         auth,
         isWebCrawler } = require('./header')
@@ -26,7 +25,6 @@ app.use('/api/public/pages', pagesAPIpublicRoutes)
 app.use('/api/private/pages', auth, pagesAPIprivateRoutes)
 app.use('/api/public/accounts', accountsAPIpublicRoutes)
 app.use('/api/private/accounts', auth, accountsAPIprivateRoutes)
-app.use('/api/private/sales', auth, salesAPIroutes)
 
 //Database connection
 database.on('error', (err)=>{

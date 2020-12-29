@@ -14,7 +14,6 @@ const { accountStatusValidator,
         genderValidator,
         officialDocumentValidator,
         passwordValidator,
-        sessionIPValidator,
         sessionStatusValidator,
         zipcodeValidator } = require('../validators/validators')
 
