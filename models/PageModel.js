@@ -10,6 +10,7 @@ class PageModel{
 
     async Create(   user_id,
                     category_id,
+                    uri,
                     status,
                     name,
                     keywords,
@@ -19,6 +20,7 @@ class PageModel{
 
             const newPage = new PageSchema({user_id,
                                             category_id,
+                                            uri,
                                             status,
                                             name,
                                             keywords,
@@ -31,7 +33,8 @@ class PageModel{
     }
 
     async InformationByURI(uri){
-        
+        const result = await PageSchema.findOne({uri})
+        return result
     }
 
     async Delete(_id, user_id){

@@ -3,7 +3,10 @@ const CitySchema = require('../database/schemas/CitySchema')
 class CityModel{
 
     async verifyCityId(_id){
-        return true;
+        const result = await CitySchema.findOne({_id})
+        return result
     }
 
 }
+
+module.exports = CityModel

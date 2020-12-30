@@ -27,6 +27,7 @@ class PageController{
 
         const user_id = req.body._id
         const category_id = req.body.category_id
+        const uri = req.body.uri
         const status = req.body.status
         const name = req.body.name
         const keywords = req.body.keywords
@@ -36,6 +37,7 @@ class PageController{
 
         const result = newPage.Create(  user_id,
                                         category_id,
+                                        uri,
                                         status,
                                         name,
                                         keywords,
@@ -60,11 +62,27 @@ class PageController{
      * @param {function} next next() from Express routing
      */
     static Information(req,res,next){
+        //Verify the {body} from express-validator
         const errors = validationResult(req);
         if(!errors.isEmpty()){
             const result = ErrMessage({code: undefined}, "Invalid data.", 'PageController.Information', errors.array())
             return res.status(200).json(result);
         }
+
+        const uri = req.params.uri
+
+        const Information = new PageModel()
+        const result = Information.InformationByURI(uri)
+                        .then((data)=>SuccessMessage(true, 'The page was founded with success.', data))
+                        .catch(err=>{
+                            const result = ErrMessage({code: undefined}, 'This page cannot be founded by URI.', 'PageController.Information', err)
+                            return res.status(200).json(result)
+                        })
+                        .then(result=>{
+                            return res.status(200).json(result)
+                        })
+
+
     }
 
     /**

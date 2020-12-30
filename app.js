@@ -26,6 +26,11 @@ app.use('/api/private/pages', auth, pagesAPIprivateRoutes)
 app.use('/api/public/accounts', accountsAPIpublicRoutes)
 app.use('/api/private/accounts', auth, accountsAPIprivateRoutes)
 
+app.use(express.static(path.join(__dirname, 'client', 'build')))
+app.get('*', (req,res,next)=>{
+    return res.status(200).sendFile(path.join(__dirname, 'client', 'build', 'index.html'))
+})
+
 //Database connection
 database.on('error', (err)=>{
     console.error('Database connection error\n')
