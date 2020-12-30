@@ -6,6 +6,6 @@ export default function Page(props){
     const {uri} = useParams
 
     return (
-        <Container className="">{uri}</Container>
+        <Container className="">Page: {uri}</Container>
     )
 }
