@@ -38,9 +38,7 @@ function App() {
       <Route exact path="/logout">
         <Logout />
       </Route>
-      <Route path="/page/:uri">
-        <Page />
-      </Route>
+      <Route path="/page/:uri" component={<Page />} />
       <Route exact path="/">
         <Home />
       </Route>
