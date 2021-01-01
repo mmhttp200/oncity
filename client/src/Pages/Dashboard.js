@@ -1,7 +1,10 @@
 import {Container} from 'reactstrap'
+import MainNavbar from '../features/navbar/MainNavbar'
 
 export default function Dashboard(props){
     return (
-        <Container className=""></Container>
+        <Container className="">
+            <MainNavbar />
+        </Container>
     )
 }

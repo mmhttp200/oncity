@@ -2,7 +2,7 @@ import {BrowserRouter, Route, Switch} from 'react-router-dom'
 import React, { Suspense } from 'react'
 import './App.css';
 
-const Register = React.lazy(()=>import('./Pages/Register'))
+const CreateNewAccount = React.lazy(()=>import('./Pages/CreateNewAccount'))
 const Login = React.lazy(()=>import('./Pages/Login'))
 const Dashboard = React.lazy(()=>import('./Pages/Dashboard'))
 const CreateNewPage = React.lazy(()=>import('./Pages/CreateNewPage'))
@@ -10,6 +10,7 @@ const EditPage = React.lazy(()=>import('./Pages/EditPage'))
 const EditAccount = React.lazy(()=>import('./Pages/EditAccount'))
 const Logout = React.lazy(()=>import('./Pages/Logout'))
 const Page = React.lazy(()=>import('./Pages/Page'))
+const About = React.lazy(()=>import('./Pages/About'))
 const Home = React.lazy(()=>import('./Pages/Home'))
 
 function App() {
@@ -17,11 +18,14 @@ function App() {
     <Suspense fallback={<div>Loading...</div>}>
     <BrowserRouter>
     <Switch>
-      <Route exact path="/register">
-        <Register />
+      <Route exact path="/create-new-account">
+        <CreateNewAccount />
       </Route>
       <Route exact path="/login">
         <Login />
+      </Route>
+      <Route exact path="/about">
+        <About />
       </Route>
       <Route exact path="/dashboard">
         <Dashboard />

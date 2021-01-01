@@ -1,7 +1,10 @@
 import {Container} from 'reactstrap'
+import MainNavbar from '../features/navbar/MainNavbar'
 
 export default function CreateNewPage(props){
     return (
-        <Container className="">Crete new page</Container>
+        <Container className="">
+            <MainNavbar />
+        </Container>
     )
 }
