@@ -1,0 +1,18 @@
+.home-main{
+    display: grid;
+    grid-template-rows: minmax(100vh,auto);
+    grid-template-columns: minmax(100vh,auto);
+    justify-content: center;
+    align-items: center;
+    animation-name: home-main;
+    animation-duration: 3s;
+  }
+  
+  @keyframes home-main{
+    0%{
+      opacity: 0;
+    }
+    100%{
+      opacity: 1;
+    }
+  }

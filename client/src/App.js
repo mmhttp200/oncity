@@ -1,4 +1,4 @@
-import {BrowserRouter, Route, Switch} from 'react-router-dom'
+import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom'
 import React, { Suspense, useEffect, useState } from 'react'
 import './App.css';
 import { useDispatch, useSelector } from 'react-redux';
@@ -18,7 +18,7 @@ const Home = React.lazy(()=>import('./Pages/Home'))
 function App() {
 
   const dispatch = useDispatch()
-  const session = useSelector(state=>state.session)
+  const sessionStatus = useSelector(state=>state.session.status)
 
   useEffect(()=>{
     if(sessionStorage.getItem('token')){
@@ -28,39 +28,39 @@ function App() {
       })
       .catch(err=>{sessionStorage.removeItem('token')})
     }
-  }, [session])
+  }, [sessionStatus])
 
   return (
     <Suspense fallback={<div>Loading...</div>}>
     <BrowserRouter>
     <Switch>
       <Route exact path="/create-new-account">
-        <CreateNewAccount />
+        {sessionStatus ? <Redirect to="/dashboard" /> : <CreateNewAccount />}
       </Route>
       <Route exact path="/login">
-        <Login />
+        {sessionStatus ? <Redirect to="/dashboard" /> : <Login />}
       </Route>
       <Route exact path="/about">
         <About />
       </Route>
       <Route exact path="/dashboard">
-        <Dashboard />
+        {sessionStatus ? <Dashboard /> : <Redirect to="/login" />}
       </Route>
       <Route exact path="/create-new-page">
-        <CreateNewPage />
+        {sessionStatus ? <CreateNewPage /> : <Redirect to="/login" />}
       </Route>
       <Route exact path="/edit-page">
-        <EditPage />
+        {sessionStatus ? <EditPage /> : <Redirect to="/login" />}
       </Route>
       <Route exact path="/edit-account">
-        <EditAccount />
+        {sessionStatus ? <EditAccount /> : <Redirect to="/login" />}
       </Route>
       <Route exact path="/logout">
-        <Logout />
+        {sessionStatus ? <Logout /> : <Redirect to="/login" />}
       </Route>
       <Route path="/page/:uri" component={Page} />
       <Route exact path="/">
-        <Home />
+        {sessionStatus ? <Redirect to="/dashboard" /> :  <Home />}
       </Route>
     </Switch>
     </BrowserRouter>
