@@ -1,6 +1,8 @@
 import {BrowserRouter, Route, Switch} from 'react-router-dom'
-import React, { Suspense } from 'react'
+import React, { Suspense, useEffect, useState } from 'react'
 import './App.css';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchUser, updateSession } from './features/session/sessionSlice';
 
 const CreateNewAccount = React.lazy(()=>import('./Pages/CreateNewAccount'))
 const Login = React.lazy(()=>import('./Pages/Login'))
@@ -14,6 +16,20 @@ const About = React.lazy(()=>import('./Pages/About'))
 const Home = React.lazy(()=>import('./Pages/Home'))
 
 function App() {
+
+  const dispatch = useDispatch()
+  const session = useSelector(state=>state.session)
+
+  useEffect(()=>{
+    if(sessionStorage.getItem('token')){
+      const result = dispatch(fetchUser(sessionStorage.getItem('token')))
+      result.then(data=>{
+        if(!data.payload.success) sessionStorage.removeItem('token')
+      })
+      .catch(err=>{sessionStorage.removeItem('token')})
+    }
+  }, [session])
+
   return (
     <Suspense fallback={<div>Loading...</div>}>
     <BrowserRouter>

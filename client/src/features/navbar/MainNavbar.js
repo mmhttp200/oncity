@@ -27,10 +27,11 @@ export default function MainNavbar(props){
     {text: 'Logout', uri: '/logout', private: true}
   ]
 
-  const [currentAnchors, setCurrentAnchors] = useState(anchors.filter(a=>a.private==session.status))
+  const currentAnchors = anchors.filter(a=>a.private==session.status)
 
   useEffect(()=>{
-  }, [])
+    
+  }, [session])
 
   return (
       <Navbar color="light" light expand="md">
