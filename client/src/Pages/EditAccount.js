@@ -14,10 +14,16 @@ export default function EditAccount(props){
             </Row>
             <Row className="main">
                 <Col xs="12">
+                    <h2>Update your email</h2>
                     <UpdateEmail />
+                    <br />
+                    <hr />
                 </Col>
                 <Col xs="12">
+                    <h2>Update your password</h2>
                     <UpdatePassword />
+                    <br />
+                    <hr />
                 </Col>
             </Row>
             <Row>

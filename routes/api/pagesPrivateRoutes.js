@@ -6,16 +6,17 @@ const route = express.Router()
 
 route.post('/create-new-page', [
     body('category_id'),
-    body('uri').custom((value, {req})=>{
+    body('uri').custom(async (value, {req})=>{
         const Page = new PageModel()
-        const result = Page.InformationByURI(value)
+        console.log(value)
+        const result = await Page.InformationByURI(value)
                         .then(data=>{
-                            if(data) return true
-                            return false
+                            console.log(data)
+                            if(data) throw new Error('This address is already in use.')
+                            return true
                         })
-                        .catch(err=>true)
-        if(result) throw new Error('This address is already in use.')
-        return true
+                        .catch(err=>{throw new Error('Internal error.')})
+        console.log(result)
     }),
     body('status'),
     body('name'),

@@ -46,7 +46,7 @@ class PageController{
                                          ).then(data=>SuccessMessage(true, 'The new page was created with success.', data))
                                         .catch(err=>{
                                             const result = ErrMessage({code: undefined}, 'This page cannot be created.', 'PageController.Create', err)
-                                            return res.status(200).json(result)
+                                            return res.status(200).json({...result})
                                         })
                                         .then((result)=>{
                                             return res.status(200).json(result)
@@ -73,7 +73,10 @@ class PageController{
 
         const Information = new PageModel()
         const result = Information.InformationByURI(uri)
-                        .then((data)=>SuccessMessage(true, 'The page was founded with success.', data))
+                        .then((data)=>{
+                            if(data) return SuccessMessage(true, 'The page was founded with success.', data)
+                            return SuccessMessage(false, 'The page was not founded.', data)
+                        })
                         .catch(err=>{
                             const result = ErrMessage({code: undefined}, 'This page cannot be founded by URI.', 'PageController.Information', err)
                             return res.status(200).json(result)
