@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import {Button, Col, Container, Row} from 'reactstrap'
+import Footer from '../features/footer/Footer'
 import MainNavbar from '../features/navbar/MainNavbar'
 import './Home.css'
 
@@ -26,7 +27,7 @@ export default function Home(props){
             </Row>
             <Row>
                 <Col xs="12">
-                    <Link to="/about">About</Link> | <a href="#top">To top</a>
+                    <Footer />
                 </Col>
             </Row>
         </Container>

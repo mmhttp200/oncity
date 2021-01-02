@@ -12,7 +12,6 @@ const { accountStatusValidator,
         emailValidator,
         fullnameValidator,
         genderValidator,
-        officialDocumentValidator,
         passwordValidator,
         sessionStatusValidator,
         zipcodeValidator } = require('../validators/validators')
@@ -102,12 +101,7 @@ const AccountSchema = new Schema({
     },
     officialDocument: {
         type: Number,
-        required: true,
-        unique: true,
-        validate: {
-            validator: officialDocumentValidator,
-            message: "Use a valid official document number."
-        }
+        required: true
     },
     city: {
         type: String,

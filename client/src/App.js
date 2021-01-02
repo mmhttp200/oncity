@@ -2,7 +2,7 @@ import {BrowserRouter, Redirect, Route, Switch} from 'react-router-dom'
 import React, { Suspense, useEffect, useState } from 'react'
 import './App.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchUser, updateSession } from './features/session/sessionSlice';
+import { fetchUser, logoutSession } from './features/session/sessionSlice';
 
 const CreateNewAccount = React.lazy(()=>import('./Pages/CreateNewAccount'))
 const Login = React.lazy(()=>import('./Pages/Login'))
@@ -27,8 +27,11 @@ function App() {
         if(!data.payload.success) sessionStorage.removeItem('token')
       })
       .catch(err=>{sessionStorage.removeItem('token')})
+    }else{
+      dispatch(logoutSession())
     }
-  }, [sessionStatus])
+    console.log('hello')
+  })
 
   return (
     <Suspense fallback={<div>Loading...</div>}>

@@ -38,19 +38,9 @@ route.post('/create-new-account', [
     }),
     body('officialDocument').custom((value, {req})=>{
         if(officialDocumentValidator(value)) return true
-        throw new Error('Your document can to have 11 numbers (brazilian CPF). ')
+        throw new Error('Your document must have 11 numbers (brazilian CPF). ')
     }),
-    body('city').custom((value, {req})=>{
-        const City = new CityModel()
-        const result = CityModel
-                        .then(data=>{
-                            if(!data) return false
-                            return true
-                        })
-                        .catch(err=>false)
-        if(result) return true
-        throw new Error('This city does not exist.')
-    }),
+    body('city'),
     body('address'),
     body('zipcode').custom((value, {req})=>{
         if(zipcodeValidator(value)) return true

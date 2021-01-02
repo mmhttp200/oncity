@@ -16,8 +16,9 @@ const sessionSlice = createSlice({
         token: null
     },
     reducers: {
-        updateSession: (state,action)=>{
-            
+        logoutSession: (state, action)=>{
+            state.status = false
+            state.token = null
         }
     },
     extraReducers: {
@@ -39,6 +40,6 @@ const sessionSlice = createSlice({
     }
 })
 
-export const {updateSession} = sessionSlice.actions
+export const {logoutSession} = sessionSlice.actions
 
 export default sessionSlice.reducer

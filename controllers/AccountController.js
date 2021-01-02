@@ -55,12 +55,12 @@ class AccountController{
                                          zipcode
                                          )
                                          .then(data=>SuccessMessage(true, 'The new account was created with success.', data))
-                                        .catch(err=>{
-                                            const result = ErrMessage({code: undefined}, 'The account cannot be created.', 'AccountController.Create', err)
-                                            return res.status(200).json(result)
-                                        })
                                         .then(result=>{
                                             return res.status(200).json(result)
+                                        })
+                                        .catch(err=>{
+                                            const result = ErrMessage(err, 'The account cannot be created.', 'AccountController.Create', err)
+                                            return res.status(200).json({...result})
                                         })
 
     }
